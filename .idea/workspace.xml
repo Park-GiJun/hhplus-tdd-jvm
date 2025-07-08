@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ef18cf66-4d40-4c0a-8d23-80d7e83249bf" name="Changes" comment="init" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="hhplus-tdd-jvm" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin JUnit5 Test Class" />
+        <option value="Kotlin Enum" />
+        <option value="Kotlin Data Class" />
+        <option value="Kotlin Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Park-GiJun&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Park-GiJun/hhplus-tdd-jvm-hh.git&quot;,
+    &quot;accountId&quot;: &quot;9fb714d6-ab60-4875-b93e-79f1d4f7c850&quot;
+  }
+}</component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP8.3" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2zUP9lvsCBDb9ecuBcnQlTPP27f" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Gradle.BalanceCheckTest.hasEnoughBalance_InsufficientBalance_ReturnsFalse.executor": "Run",
+    "Gradle.BalanceCheckTest.hasEnoughBalance_SufficientBalance_ReturnsTrue.executor": "Run",
+    "Gradle.ChargePointTest.chargeUserPoint_ValidCharge_ReturnsChargedPoint.executor": "Run",
+    "Gradle.ChargePointTest.chargeUserPoint_ZeroAmount_ThrowsExceptionAndNoSideEffects.executor": "Run",
+    "Gradle.ChargePointTest.updateUserPoint_ExceedsMaxPoint_ThrowsException.executor": "Run",
+    "Gradle.ChargePointTest.updateUserPoint_ZeroAmount_ThrowsExceptionAndNoSideEffects.executor": "Run",
+    "Gradle.ChargeTest.charge_OverMaxPoint_ThrowException.executor": "Run",
+    "Gradle.ChargeTest.executor": "Run",
+    "Gradle.ControllerTest.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.GetUserPointTest.executor": "Run",
+    "Gradle.MockingTest.executor": "Run",
+    "Gradle.PointTest.1000원을 충전하면 금액이 1000원 증가한다.executor": "Run",
+    "Gradle.ServiceTest.useUserPoint_ZeroPoint_ThrowException.executor": "Run",
+    "Gradle.ServiceTest.useUserPoint_insufficientBalance_ThrowsException.executor": "Run",
+    "Gradle.UnitServiceTest.executor": "Run",
+    "Gradle.UnitServiceTest.잔액이 부족한 상황에서 포인트 차감 시 마이너스 검증 예외 발생.executor": "Run",
+    "Gradle.UnitServiceTest.포인트 사용 시 잔액보다 많이 사용하면 예외 발생.executor": "Run",
+    "Gradle.UsePointTest.executor": "Run",
+    "Gradle.UsePointTest.useUserPoint_ValidUse_ReturnsUsedPoint.executor": "Run",
+    "Gradle.UsePointTest.useUserPoint_ZeroPoint_ThrowException.executor": "Run",
+    "Gradle.UseTest.executor": "Run",
+    "Gradle.UserIdValidationTest.executor": "Run",
+    "Gradle.UserPointTest (1).executor": "Run",
+    "Gradle.UserPointTest.executor": "Run",
+    "Gradle.UserServiceTest.executor": "Run",
+    "Gradle.UserServiceTest.사용자 1번이 포인트를 조회하면 현재 포인트를 반환한다.executor": "Run",
+    "Gradle.UserServiceTest.사용자 포인트 업데이트시 정상적으로 업데이트된 포인트를 반환한다.executor": "Run",
+    "Gradle.UserServiceTest.음수 사용자 ID로 조회 시 예외가 발생한다.executor": "Run",
+    "Gradle.UserServiceTest.의도적으로 실패하는 테스트.executor": "Run",
+    "Gradle.UserServiceTest.존재하는 사용자 ID로 포인트 조회시 실제 포인트를 반환한다.executor": "Run",
+    "Gradle.UserServiceTest.존재하지 않는 사용자 ID로 포인트 조회시 기본값 0을 반환한다.executor": "Run",
+    "Gradle.pointServiceTest.executor": "Run",
+    "Gradle.pointServiceTest.존재하지 않는 사용자 조회시 기본값 0 포인트를 반환한다.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Dev/sparta/hhplus-tdd-jvm-kotlin/hhplus-tdd-jvm",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "ml.llm.mcp",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="io.hhplus.tdd.service" />
+    </key>
+    <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
+      <recent name="io.hhplus.tdd" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.UsePointTest.useUserPoint_ZeroPoint_ThrowException">
+    <configuration name="ChargePointTest.chargeUserPoint_ZeroAmount_ThrowsExceptionAndNoSideEffects" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;io.hhplus.tdd.ServiceTest$ChargePointTest.chargeUserPoint_ZeroAmount_ThrowsExceptionAndNoSideEffects&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="ServiceTest.useUserPoint_ZeroPoint_ThrowException" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;io.hhplus.tdd.ServiceTest.useUserPoint_ZeroPoint_ThrowException&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="ServiceTest.useUserPoint_insufficientBalance_ThrowsException" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;io.hhplus.tdd.ServiceTest.useUserPoint_insufficientBalance_ThrowsException&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="UsePointTest.useUserPoint_ValidUse_ReturnsUsedPoint" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;io.hhplus.tdd.ServiceTest$UsePointTest.useUserPoint_ValidUse_ReturnsUsedPoint&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="UsePointTest.useUserPoint_ZeroPoint_ThrowException" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;io.hhplus.tdd.ServiceTest$UsePointTest.useUserPoint_ZeroPoint_ThrowException&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="TddApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="hhplus-tdd-jvm.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="io.hhplus.tdd.TddApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.UsePointTest.useUserPoint_ZeroPoint_ThrowException" />
+        <item itemvalue="Gradle.UsePointTest.useUserPoint_ValidUse_ReturnsUsedPoint" />
+        <item itemvalue="Gradle.ServiceTest.useUserPoint_ZeroPoint_ThrowException" />
+        <item itemvalue="Gradle.ServiceTest.useUserPoint_insufficientBalance_ThrowsException" />
+        <item itemvalue="Gradle.ChargePointTest.chargeUserPoint_ZeroAmount_ThrowsExceptionAndNoSideEffects" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
+        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ef18cf66-4d40-4c0a-8d23-80d7e83249bf" name="Changes" comment="" />
+      <created>1751782529406</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1751782529406</updated>
+      <workItem from="1751782530945" duration="16130000" />
+      <workItem from="1751811418490" duration="2603000" />
+      <workItem from="1751881452173" duration="1276000" />
+      <workItem from="1751882784188" duration="10710000" />
+      <workItem from="1751975132070" duration="3984000" />
+      <workItem from="1751979173341" duration="59000" />
+      <workItem from="1751979255217" duration="1257000" />
+    </task>
+    <task id="LOCAL-00001" summary="init">
+      <option name="closed" value="true" />
+      <created>1751805178391</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1751805178391</updated>
+    </task>
+    <task id="LOCAL-00002" summary="init">
+      <option name="closed" value="true" />
+      <created>1751813974046</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1751813974046</updated>
+    </task>
+    <task id="LOCAL-00003" summary="init">
+      <option name="closed" value="true" />
+      <created>1751896706601</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1751896706601</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="init" />
+    <option name="LAST_COMMIT_MESSAGE" value="init" />
+  </component>
+</project>
