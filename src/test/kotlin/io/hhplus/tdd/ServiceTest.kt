@@ -57,32 +57,6 @@ class ServiceTest {
             logger.info("조회된 포인트: {}", result.point)
         }
 
-//        @Test
-//        @DisplayName("0의 사용자 ID로 조회시 예외가 발생한다")
-//        fun getUserPoint_InvalidUserId_ThrowsException() {
-//            val invalidUserId = 0L
-//            val expectedMessage = "유저 아이디는 0보다 작을수 없습니다."
-//
-//            Assertions.assertThatThrownBy { pointService.getUserPoint(invalidUserId) }
-//                .isInstanceOf(IllegalArgumentException::class.java)
-//                .hasMessage(expectedMessage)
-//
-//            verify(exactly = 0) { userPointTable.selectById(any()) }
-//        }
-//
-//        @Test
-//        @DisplayName("음수 사용자 ID로 조회시 예외 발생")
-//        fun getUserPoint_NegativeUserId_ThrowsException() {
-//            val invalidUserId = -1L
-//            val expectedMessage = "유저 아이디는 0보다 작을수 없습니다."
-//
-//            Assertions.assertThatThrownBy { pointService.getUserPoint(invalidUserId) }
-//                .isInstanceOf(IllegalArgumentException::class.java)
-//                .hasMessage(expectedMessage)
-//
-//            verify(exactly = 0) { userPointTable.selectById(any()) }
-//        }
-
         @Test
         @DisplayName("존재하지 않는 사용자 ID로 조회시 기본값을 반환한다")
         fun getUserPoint_NonExistentUserId_ReturnsDefaultUserPoint() {
@@ -170,32 +144,10 @@ class ServiceTest {
             verify(exactly = 1) {
                 eventPublisher.publishEvent(
                     match<PointEvent> { event ->
-                        event.userId == 1L &&
-                                event.amount == 500L &&
-                                event.beforePoint == 1000L &&
-                                event.afterPoint == expectedPoint &&
-                                event.transactionType == TransactionType.CHARGE
-                    }
-                )
+                        event.userId == 1L && event.amount == 500L && event.beforePoint == 1000L && event.afterPoint == expectedPoint && event.transactionType == TransactionType.CHARGE
+                    })
             }
         }
-
-//        @Test
-//        @DisplayName("0원 충전시 예외 발생")
-//        fun chargeUserPoint_ZeroAmount_ThrowsExceptionAndNoSideEffects() {
-//            val invalidRequest = PointRequest(1L, 0L, TransactionType.CHARGE)
-//            val currentUserPoint = UserPoint(1L, 1000L, System.currentTimeMillis())
-//
-//            every { userPointTable.selectById(1L) } returns currentUserPoint
-//
-//            Assertions.assertThatThrownBy { pointService.updateUserPoint(invalidRequest) }
-//                .isInstanceOf(IllegalArgumentException::class.java)
-//                .hasMessage("금액은 0보다 커야 합니다.")
-//
-//            verify(exactly = 1) { userPointTable.selectById(1L) }
-//            verify(exactly = 0) { eventPublisher.publishEvent(any()) }
-//            verify(exactly = 0) { userPointTable.insertOrUpdate(any(), any()) }
-//        }
 
         @Test
         @DisplayName("최대 포인트 초과 충전시 예외가 발생한다")
@@ -206,30 +158,12 @@ class ServiceTest {
             every { userPointTable.selectById(1L) } returns currentUserPoint
 
             Assertions.assertThatThrownBy { pointService.updateUserPoint(overMaxRequest) }
-                .isInstanceOf(IllegalArgumentException::class.java)
-                .hasMessageContaining("포인트가 최대값을 초과할 수 없습니다")
+                .isInstanceOf(IllegalArgumentException::class.java).hasMessageContaining("포인트가 최대값을 초과할 수 없습니다")
 
             verify(exactly = 1) { userPointTable.selectById(1L) }
             verify(exactly = 0) { eventPublisher.publishEvent(any()) }
             verify(exactly = 0) { userPointTable.insertOrUpdate(any(), any()) }
         }
-
-//        @Test
-//        @DisplayName("마이너스 포인트 충전")
-//        fun chargeUserPoint_NegativeAmount_ThrowsException() {
-//            val negativeRequest = PointRequest(1L, -100L, TransactionType.CHARGE)
-//            val currentUserPoint = UserPoint(1L, 1000L, System.currentTimeMillis())
-//
-//            every { userPointTable.selectById(1L) } returns currentUserPoint
-//
-//            Assertions.assertThatThrownBy { pointService.updateUserPoint(negativeRequest) }
-//                .isInstanceOf(IllegalArgumentException::class.java)
-//                .hasMessage("금액은 0보다 커야 합니다.")
-//
-//            verify(exactly = 1) { userPointTable.selectById(1L) }
-//            verify(exactly = 0) { eventPublisher.publishEvent(any()) }
-//            verify(exactly = 0) { userPointTable.insertOrUpdate(any(), any()) }
-//        }
     }
 
     @Nested
@@ -262,13 +196,8 @@ class ServiceTest {
             verify(exactly = 1) {
                 eventPublisher.publishEvent(
                     match<PointEvent> { event ->
-                        event.userId == 1L &&
-                                event.amount == 500L &&
-                                event.beforePoint == 1000L &&
-                                event.afterPoint == expectedPoint &&
-                                event.transactionType == TransactionType.USE
-                    }
-                )
+                        event.userId == 1L && event.amount == 500L && event.beforePoint == 1000L && event.afterPoint == expectedPoint && event.transactionType == TransactionType.USE
+                    })
             }
         }
 
@@ -281,46 +210,11 @@ class ServiceTest {
             every { userPointTable.selectById(1L) } returns currentUserPoint
 
             Assertions.assertThatThrownBy { pointService.updateUserPoint(useRequest) }
-                .isInstanceOf(IllegalArgumentException::class.java)
-                .hasMessage("잔액이 부족합니다. 현재 포인트: 1000원, 사용 요청: 5000원")
+                .isInstanceOf(IllegalArgumentException::class.java).hasMessage("잔액이 부족합니다. 현재 포인트: 1000원, 사용 요청: 5000원")
 
             verify(exactly = 1) { userPointTable.selectById(1L) }
             verify(exactly = 0) { eventPublisher.publishEvent(any()) }
             verify(exactly = 0) { userPointTable.insertOrUpdate(any(), any()) }
         }
-
-//        @Test
-//        @DisplayName("0포인트 사용")
-//        fun useUserPoint_ZeroPoint_ThrowException() {
-//            val useRequest = PointRequest(1L, 0L, TransactionType.USE)
-//            val currentUserPoint = UserPoint(1L, 1000L, System.currentTimeMillis())
-//
-//            every { userPointTable.selectById(1L) } returns currentUserPoint
-//
-//            Assertions.assertThatThrownBy { pointService.updateUserPoint(useRequest) }
-//                .isInstanceOf(IllegalArgumentException::class.java)
-//                .hasMessage("금액은 0보다 커야 합니다.")
-//
-//            verify(exactly = 1) { userPointTable.selectById(1L) }
-//            verify(exactly = 0) { eventPublisher.publishEvent(any()) }
-//            verify(exactly = 0) { userPointTable.insertOrUpdate(any(), any()) }
-//        }
-
-//        @Test
-//        @DisplayName("마이너스 포인트 사용")
-//        fun useUserPoint_NegativeAmount_ThrowsException() {
-//            val negativeRequest = PointRequest(1L, -100L, TransactionType.USE)
-//            val currentUserPoint = UserPoint(1L, 1000L, System.currentTimeMillis())
-//
-//            every { userPointTable.selectById(1L) } returns currentUserPoint
-//
-//            Assertions.assertThatThrownBy { pointService.updateUserPoint(negativeRequest) }
-//                .isInstanceOf(IllegalArgumentException::class.java)
-//                .hasMessage("금액은 0보다 커야 합니다.")
-//
-//            verify(exactly = 1) { userPointTable.selectById(1L) }
-//            verify(exactly = 0) { eventPublisher.publishEvent(any()) }
-//            verify(exactly = 0) { userPointTable.insertOrUpdate(any(), any()) }
-//        }
     }
 }

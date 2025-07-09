@@ -7,16 +7,10 @@ data class UserPoint(
 ) {
     companion object {
         const val MAX_POINT = 100_000_000L
-        
-        fun validateUserId(id: Long) {
-            require(id > 0) { "유저 아이디는 0보다 작을수 없습니다." }
-        }
     }
 
 
     fun charge(amount: Long): UserPoint {
-        validateAmount(amount)
-        
         val newPoint = this.point + amount
         validateMaxPoint(newPoint)
         
@@ -27,7 +21,6 @@ data class UserPoint(
     }
 
     fun use(amount: Long): UserPoint {
-        validateAmount(amount)
         validateSufficientBalance(amount)
         
         val newPoint = this.point - amount
@@ -36,10 +29,6 @@ data class UserPoint(
             point = newPoint,
             updateMillis = System.currentTimeMillis(),
         )
-    }
-
-    private fun validateAmount(amount: Long) {
-        require(amount > 0) { "금액은 0보다 커야 합니다." }
     }
 
     private fun validateSufficientBalance(amount: Long) {

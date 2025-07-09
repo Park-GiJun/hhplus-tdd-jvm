@@ -20,7 +20,6 @@ class PointService(
 ) {
 
     fun getUserPoint(id: Long): UserPoint {
-        UserPoint.validateUserId(id)
         return userPointTable.selectById(id)
     }
 

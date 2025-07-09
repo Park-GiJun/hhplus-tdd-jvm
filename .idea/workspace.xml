@@ -4,14 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ef18cf66-4d40-4c0a-8d23-80d7e83249bf" name="Changes" comment="init">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/io/hhplus/tdd/dto/PointUpdateResponse.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
+    <list default="true" id="ef18cf66-4d40-4c0a-8d23-80d7e83249bf" name="Changes" comment="[20250709] 도메인에서 검증하던 내용을 컨트롤러로 이관">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/io/hhplus/tdd/dto/ChargeRequest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/io/hhplus/tdd/dto/CommonResponse.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/io/hhplus/tdd/point/PointController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/io/hhplus/tdd/point/PointController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/io/hhplus/tdd/ApiControllerAdvice.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/io/hhplus/tdd/ApiControllerAdvice.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/io/hhplus/tdd/point/UserPoint.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/io/hhplus/tdd/point/UserPoint.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/io/hhplus/tdd/service/PointService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/io/hhplus/tdd/service/PointService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/io/hhplus/tdd/ControllerTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/io/hhplus/tdd/ControllerTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/kotlin/io/hhplus/tdd/ServiceTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/io/hhplus/tdd/ServiceTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -319,7 +318,7 @@
       <workItem from="1751975132070" duration="3984000" />
       <workItem from="1751979173341" duration="59000" />
       <workItem from="1751979255217" duration="1593000" />
-      <workItem from="1752059901817" duration="4621000" />
+      <workItem from="1752059901817" duration="5824000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -345,7 +344,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751896706601</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="[20250709] 도메인에서 검증하던 내용을 컨트롤러로 이관">
+      <option name="closed" value="true" />
+      <created>1752064635356</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1752064635356</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -364,6 +371,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
-    <option name="LAST_COMMIT_MESSAGE" value="init" />
+    <MESSAGE value="[20250709] 도메인에서 검증하던 내용을 컨트롤러로 이관" />
+    <option name="LAST_COMMIT_MESSAGE" value="[20250709] 도메인에서 검증하던 내용을 컨트롤러로 이관" />
   </component>
 </project>
