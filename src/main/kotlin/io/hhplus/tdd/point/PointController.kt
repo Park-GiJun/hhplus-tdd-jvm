@@ -1,6 +1,7 @@
 package io.hhplus.tdd.point
 
 import io.hhplus.tdd.dto.PointRequest
+import io.hhplus.tdd.dto.PointUpdateResponse
 import io.hhplus.tdd.service.PointService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -30,8 +31,8 @@ class PointController(
     @GetMapping("{id}/histories")
     fun history(
         @PathVariable id: Long,
-    ): List<PointHistory> {
-        return emptyList()
+    ): ResponseEntity<List<PointHistory>> {
+        return ResponseEntity.ok(pointService.selectAllByUserId(id))
     }
 
     /**
@@ -40,7 +41,7 @@ class PointController(
     @PatchMapping("{id}/charge")
     fun charge(
         @RequestBody request: PointRequest,
-    ): ResponseEntity<UserPoint> {
+    ): ResponseEntity<PointUpdateResponse> {
         return ResponseEntity.ok(pointService.updateUserPoint(request))
     }
 
@@ -50,7 +51,7 @@ class PointController(
     @PatchMapping("{id}/use")
     fun use(
         @RequestBody request: PointRequest,
-    ): ResponseEntity<UserPoint> {
+    ): ResponseEntity<PointUpdateResponse> {
         return ResponseEntity.ok(pointService.updateUserPoint(request))
     }
 }

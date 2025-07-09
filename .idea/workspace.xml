@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ef18cf66-4d40-4c0a-8d23-80d7e83249bf" name="Changes" comment="init" />
+    <list default="true" id="ef18cf66-4d40-4c0a-8d23-80d7e83249bf" name="Changes" comment="init">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/io/hhplus/tdd/dto/PointUpdateResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/io/hhplus/tdd/point/PointController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/io/hhplus/tdd/point/PointController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/io/hhplus/tdd/service/PointService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/io/hhplus/tdd/service/PointService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/io/hhplus/tdd/ControllerTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/io/hhplus/tdd/ControllerTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/io/hhplus/tdd/ServiceTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/io/hhplus/tdd/ServiceTest.kt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,8 +52,8 @@
       <list>
         <option value="Kotlin JUnit5 Test Class" />
         <option value="Kotlin Enum" />
-        <option value="Kotlin Data Class" />
         <option value="Kotlin Class" />
+        <option value="Kotlin Data Class" />
       </list>
     </option>
   </component>
@@ -64,7 +73,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Park-GiJun/hhplus-tdd-jvm-hh.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/Park-GiJun/hhplus-tdd-jvm.git&quot;,
     &quot;accountId&quot;: &quot;9fb714d6-ab60-4875-b93e-79f1d4f7c850&quot;
   }
 }</component>
@@ -95,6 +104,7 @@
     "Gradle.GetUserPointTest.executor": "Run",
     "Gradle.MockingTest.executor": "Run",
     "Gradle.PointTest.1000원을 충전하면 금액이 1000원 증가한다.executor": "Run",
+    "Gradle.ServiceTest.executor": "Run",
     "Gradle.ServiceTest.useUserPoint_ZeroPoint_ThrowException.executor": "Run",
     "Gradle.ServiceTest.useUserPoint_insufficientBalance_ThrowsException.executor": "Run",
     "Gradle.UnitServiceTest.executor": "Run",
@@ -123,7 +133,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "gijun",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Dev/sparta/hhplus-tdd-jvm-kotlin/hhplus-tdd-jvm",
     "node.js.detected.package.eslint": "true",
@@ -149,8 +159,8 @@
       <recent name="io.hhplus.tdd" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.UsePointTest.useUserPoint_ZeroPoint_ThrowException">
-    <configuration name="ChargePointTest.chargeUserPoint_ZeroAmount_ThrowsExceptionAndNoSideEffects" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.ServiceTest">
+    <configuration name="GetUserPointTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -163,7 +173,31 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;io.hhplus.tdd.ServiceTest$ChargePointTest.chargeUserPoint_ZeroAmount_ThrowsExceptionAndNoSideEffects&quot;" />
+            <option value="&quot;io.hhplus.tdd.ServiceTest$GetUserPointTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="ServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;io.hhplus.tdd.ServiceTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -188,30 +222,6 @@
             <option value=":test" />
             <option value="--tests" />
             <option value="&quot;io.hhplus.tdd.ServiceTest.useUserPoint_ZeroPoint_ThrowException&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="ServiceTest.useUserPoint_insufficientBalance_ThrowsException" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;io.hhplus.tdd.ServiceTest.useUserPoint_insufficientBalance_ThrowsException&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -279,11 +289,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.ServiceTest" />
+        <item itemvalue="Gradle.GetUserPointTest" />
         <item itemvalue="Gradle.UsePointTest.useUserPoint_ZeroPoint_ThrowException" />
         <item itemvalue="Gradle.UsePointTest.useUserPoint_ValidUse_ReturnsUsedPoint" />
         <item itemvalue="Gradle.ServiceTest.useUserPoint_ZeroPoint_ThrowException" />
-        <item itemvalue="Gradle.ServiceTest.useUserPoint_insufficientBalance_ThrowsException" />
-        <item itemvalue="Gradle.ChargePointTest.chargeUserPoint_ZeroAmount_ThrowsExceptionAndNoSideEffects" />
       </list>
     </recent_temporary>
   </component>
@@ -308,7 +318,8 @@
       <workItem from="1751882784188" duration="10710000" />
       <workItem from="1751975132070" duration="3984000" />
       <workItem from="1751979173341" duration="59000" />
-      <workItem from="1751979255217" duration="1257000" />
+      <workItem from="1751979255217" duration="1593000" />
+      <workItem from="1752059901817" duration="4621000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />

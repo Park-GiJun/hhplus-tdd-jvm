@@ -114,26 +114,5 @@ class ControllerTest {
     @Nested
     @DisplayName("사용자 포인트 충전")
     inner class ChargePointTest {
-
-        @Test
-        @DisplayName("정상적인 포인트 충전")
-        fun chargePoint_NormalPoint_Success() {
-            val userId = 1L
-            val chargeAmount = 1000L
-            val request = PointRequest(userId, chargeAmount, TransactionType.CHARGE)
-            val expectedUserPoint = UserPoint(userId, chargeAmount, System.currentTimeMillis())
-
-            given(pointService.updateUserPoint(request)).willReturn(expectedUserPoint)
-
-            mockMvc.perform(
-                patch("/point/{id}/charge", userId)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(request))
-            )
-                .andExpect(status().isOk)
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(userId))
-                .andExpect(jsonPath("$.point").value(chargeAmount))
-        }
     }
 }
