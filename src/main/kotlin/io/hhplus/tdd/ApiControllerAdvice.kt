@@ -24,16 +24,6 @@ class ApiControllerAdvice : ResponseEntityExceptionHandler() {
         )
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException::class)
-    fun handleValidationException(e: MethodArgumentNotValidException): ResponseEntity<CommonResponse<Nothing>> {
-        val errorMessage = e.bindingResult.fieldErrors
-            .joinToString(", ") { "${it.field}: ${it.defaultMessage}" }
-        logger.warn("Validation error occurred: $errorMessage")
-        return ResponseEntity.badRequest().body(
-            CommonResponse.error(errorMessage)
-        )
-    }
-
     @ExceptionHandler(Exception::class)
     fun handleException(e: Exception): ResponseEntity<CommonResponse<Nothing>> {
         logger.error("Unexpected error occurred", e)
