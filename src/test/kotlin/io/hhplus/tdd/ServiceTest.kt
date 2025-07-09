@@ -140,7 +140,6 @@ class ServiceTest {
 
             verify(exactly = 1) { userPointTable.selectById(1L) }
             verify(exactly = 1) { userPointTable.insertOrUpdate(1L, expectedPoint) }
-
             verify(exactly = 1) {
                 eventPublisher.publishEvent(
                     match<PointEvent> { event ->

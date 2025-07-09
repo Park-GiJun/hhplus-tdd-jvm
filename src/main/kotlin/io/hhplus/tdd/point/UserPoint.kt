@@ -13,7 +13,7 @@ data class UserPoint(
     fun charge(amount: Long): UserPoint {
         val newPoint = this.point + amount
         validateMaxPoint(newPoint)
-        
+
         return this.copy(
             point = newPoint,
             updateMillis = System.currentTimeMillis(),
@@ -22,9 +22,9 @@ data class UserPoint(
 
     fun use(amount: Long): UserPoint {
         validateSufficientBalance(amount)
-        
+
         val newPoint = this.point - amount
-        
+
         return this.copy(
             point = newPoint,
             updateMillis = System.currentTimeMillis(),
@@ -32,14 +32,14 @@ data class UserPoint(
     }
 
     private fun validateSufficientBalance(amount: Long) {
-        require(this.point >= amount) { 
-            "잔액이 부족합니다. 현재 포인트: ${this.point}원, 사용 요청: ${amount}원" 
+        require(this.point >= amount) {
+            "잔액이 부족합니다. 현재 포인트: ${this.point}원, 사용 요청: ${amount}원"
         }
     }
 
     private fun validateMaxPoint(point: Long) {
-        require(point <= MAX_POINT) { 
-            "포인트가 최대값을 초과할 수 없습니다. 최대값: ${MAX_POINT}원, 요청값: ${point}원" 
+        require(point <= MAX_POINT) {
+            "포인트가 최대값을 초과할 수 없습니다. 최대값: ${MAX_POINT}원, 요청값: ${point}원"
         }
     }
 }
