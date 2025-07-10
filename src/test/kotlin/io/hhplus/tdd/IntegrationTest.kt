@@ -24,7 +24,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 
 @WebMvcTest(PointController::class)
 @DisplayName("PointController 테스트")
-class ControllerTest {
+class IntegrationTest {
 
     @Autowired
     private lateinit var mockMvc: MockMvc
