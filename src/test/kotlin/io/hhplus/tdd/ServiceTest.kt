@@ -19,8 +19,8 @@ import org.slf4j.LoggerFactory
 import org.springframework.context.ApplicationEventPublisher
 
 @DisplayName("서비스 테스트")
-class UnitTest {
-    private val logger = LoggerFactory.getLogger(UnitTest::class.java)
+class ServiceTest {
+    private val logger = LoggerFactory.getLogger(ServiceTest::class.java)
 
     private lateinit var userPointTable: UserPointTable
     private lateinit var pointHistoryTable: PointHistoryTable
