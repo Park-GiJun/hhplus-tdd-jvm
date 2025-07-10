@@ -1,23 +1,26 @@
 package io.hhplus.tdd
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.ninjasquad.springmockk.MockkBean
+import io.hhplus.tdd.dto.PointAmountRequest
 import io.hhplus.tdd.dto.PointRequest
+import io.hhplus.tdd.dto.PointUpdateResponse
 import io.hhplus.tdd.point.PointController
 import io.hhplus.tdd.point.TransactionType
 import io.hhplus.tdd.point.UserPoint
+import io.hhplus.tdd.point.UserPoint.Companion.MAX_POINT
 import io.hhplus.tdd.service.PointService
+import io.mockk.every
+import io.mockk.verify
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
-import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
-import org.mockito.BDDMockito.given
 
 @WebMvcTest(PointController::class)
 @DisplayName("PointController 테스트")
@@ -26,114 +29,295 @@ class ControllerTest {
     @Autowired
     private lateinit var mockMvc: MockMvc
 
-    @MockBean
-    private lateinit var pointService: PointService
-
     @Autowired
     private lateinit var objectMapper: ObjectMapper
 
-    private val logger = LoggerFactory.getLogger(ControllerTest::class.java)
+    @MockkBean
+    private lateinit var pointService: PointService
 
     @Nested
-    @DisplayName("사용자 포인트 조회")
-    inner class GetUserPointTest {
+    @DisplayName("GET /point/{id} - 포인트 조회")
+    inner class GetUserPoint {
 
         @Test
-        @DisplayName("정상적인 사용자 ID로 포인트 조회 성공")
-        fun getUserPoint_ValidId_Success() {
+        @DisplayName("정상적인 포인트 조회")
+        fun getPoint_ValidUserId_ReturnsUserPoint() {
             val userId = 1L
-            val expectedUserPoint = UserPoint(userId, 1000L, System.currentTimeMillis())
+            val userPoint = UserPoint(userId, 1000L, System.currentTimeMillis())
+            every { pointService.getUserPoint(userId) } returns userPoint
 
-            given(pointService.getUserPoint(userId)).willReturn(expectedUserPoint)
-
-            logger.info("조회 ID: {}, 예상 포인트: {}", userId, expectedUserPoint.point)
-
-            mockMvc.perform(get("/point/{id}", userId))
+            mockMvc.perform(MockMvcRequestBuilders.get("/point/{id}", userId))
                 .andExpect(status().isOk)
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(userId))
                 .andExpect(jsonPath("$.point").value(1000))
+                .andExpect(jsonPath("$.updateMillis").exists())
 
-            logger.info("포인트 조회 API 테스트 성공")
+            verify { pointService.getUserPoint(userId) }
         }
 
         @Test
-        @DisplayName("존재하지 않는 사용자 ID로 조회 시 예외 발생")
-        fun getUserPoint_NonExistentId_ThrowsException() {
-            val nonExistentUserId = 999L
-            val errorMessage = "사용자를 찾을 수 없습니다."
-
-            given(pointService.getUserPoint(nonExistentUserId))
-                .willThrow(IllegalArgumentException(errorMessage))
-
-            logger.info("조회 ID: {}", nonExistentUserId)
-
-            mockMvc.perform(get("/point/{id}", nonExistentUserId))
+        @DisplayName("음수 사용자 ID로 요청시 400 에러")
+        fun getPoint_NegativeUserId_ReturnsBadRequest() {
+            mockMvc.perform(MockMvcRequestBuilders.get("/point/{id}", -1))
                 .andExpect(status().isBadRequest)
-
-            logger.info("존재하지 않는 사용자 조회 테스트 성공")
         }
 
         @Test
-        @DisplayName("음수 사용자 ID로 조회 시 예외 발생")
-        fun getUserPoint_NegativeId_ThrowsException() {
-            val negativeUserId = -1L
-            val errorMessage = "유저 아이디는 0보다 작을수 없습니다."
+        @DisplayName("0 사용자 ID로 요청시 기본 포인트 반환")
+        fun getPoint_ZeroUserId_ReturnsDefaultPoint() {
+            val userId = 0L
+            val userPoint = UserPoint(userId, 0L, System.currentTimeMillis())
+            every { pointService.getUserPoint(userId) } returns userPoint
 
-            given(pointService.getUserPoint(negativeUserId))
-                .willThrow(IllegalArgumentException(errorMessage))
+            mockMvc.perform(MockMvcRequestBuilders.get("/point/{id}", userId))
+                .andExpect(status().isOk)
+                .andExpect(jsonPath("$.id").value(0))
+                .andExpect(jsonPath("$.point").value(0))
 
-            logger.info("조회 ID: {}", negativeUserId)
-
-            mockMvc.perform(get("/point/{id}", negativeUserId))
-                .andExpect(status().isBadRequest)
-
-            logger.info("음수 사용자 ID 조회 테스트 성공")
-        }
-
-        @Test
-        @DisplayName("0인 사용자 ID로 조회 시 예외 발생")
-        fun getUserPoint_ZeroId_ThrowsException() {
-            val zeroUserId = 0L
-            val errorMessage = "유저 아이디는 0보다 작을수 없습니다."
-
-            given(pointService.getUserPoint(zeroUserId))
-                .willThrow(IllegalArgumentException(errorMessage))
-
-            logger.info("조회 ID: {}", zeroUserId)
-
-            mockMvc.perform(get("/point/{id}", zeroUserId))
-                .andExpect(status().isBadRequest)
-                .andExpect(jsonPath("$.code").value("400"))
-                .andExpect(jsonPath("$.message").value(errorMessage))
-
-            logger.info("0인 사용자 ID 조회 테스트 성공")
+            verify { pointService.getUserPoint(userId) }
         }
     }
 
     @Nested
-    @DisplayName("사용자 포인트 충전")
-    inner class ChargePointTest {
+    @DisplayName("PATCH /point/{id}/charge - 포인트 충전")
+    inner class ChargePoint {
 
         @Test
         @DisplayName("정상적인 포인트 충전")
-        fun chargePoint_NormalPoint_Success() {
+        fun chargePoint_ValidPoint_ReturnsPoint() {
             val userId = 1L
             val chargeAmount = 1000L
-            val request = PointRequest(userId, chargeAmount, TransactionType.CHARGE)
-            val expectedUserPoint = UserPoint(userId, chargeAmount, System.currentTimeMillis())
+            val request = PointAmountRequest(chargeAmount)
+            val pointRequest = PointRequest(userId, chargeAmount, TransactionType.CHARGE)
+            val response = PointUpdateResponse(
+                userId = userId,
+                beforePointUpdate = 1000L,
+                afterPointUpdate = 2000L,
+                updatedMillis = System.currentTimeMillis()
+            )
 
-            given(pointService.updateUserPoint(request)).willReturn(expectedUserPoint)
+            every { pointService.updateUserPoint(pointRequest) } returns response
 
             mockMvc.perform(
-                patch("/point/{id}/charge", userId)
+                MockMvcRequestBuilders.patch("/point/{id}/charge", userId)
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(objectMapper.writeValueAsString(request))
             )
                 .andExpect(status().isOk)
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(userId))
-                .andExpect(jsonPath("$.point").value(chargeAmount))
+                .andExpect(jsonPath("$.userId").value(userId))
+                .andExpect(jsonPath("$.beforePointUpdate").value(1000L))
+                .andExpect(jsonPath("$.afterPointUpdate").value(2000L))
+                .andExpect(jsonPath("$.updatedMillis").exists())
+
+            verify { pointService.updateUserPoint(pointRequest) }
+        }
+
+        @Test
+        @DisplayName("음수 금액으로 충전시 400 에러")
+        fun chargePoint_NegativeAmount_ReturnsBadRequest() {
+            val userId = 1L
+            val request = PointAmountRequest(-1000L)
+
+            mockMvc.perform(
+                MockMvcRequestBuilders.patch("/point/{id}/charge", userId)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(request))
+            )
+                .andExpect(status().isBadRequest)
+        }
+
+        @Test
+        @DisplayName("0원 충전시 400 에러")
+        fun chargePoint_ZeroAmount_ReturnsBadRequest() {
+            val userId = 1L
+            val request = PointAmountRequest(0L)
+
+            mockMvc.perform(
+                MockMvcRequestBuilders.patch("/point/{id}/charge", userId)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(request))
+            )
+                .andExpect(status().isBadRequest)
+        }
+
+        @Test
+        @DisplayName("음수 사용자 ID로 충전시 400 에러")
+        fun chargePoint_NegativeUserId_ReturnsBadRequest() {
+            val request = PointAmountRequest(1000L)
+
+            mockMvc.perform(
+                MockMvcRequestBuilders.patch("/point/{id}/charge", -1)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(request))
+            )
+                .andExpect(status().isBadRequest)
+        }
+
+        @Test
+        @DisplayName("현재 포인트가 99,999,000원일 때 2,000원 충전시 최대값 초과 에러")
+        fun chargePoint_WouldExceedMaxPoint_ReturnsBadRequest() {
+            val userId = 1L
+            val chargeAmount = 2000L
+            val request = PointAmountRequest(chargeAmount)
+            val pointRequest = PointRequest(userId, chargeAmount, TransactionType.CHARGE)
+
+            every { pointService.updateUserPoint(pointRequest) } throws
+                    IllegalArgumentException("포인트가 최대값을 초과할 수 없습니다. 최대값: ${MAX_POINT}원, 요청값: ${100_001_000L}원")
+
+            mockMvc.perform(
+                MockMvcRequestBuilders.patch("/point/{id}/charge", userId)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(request))
+            )
+                .andExpect(status().isBadRequest)
+                .andExpect(jsonPath("$.message").value("포인트가 최대값을 초과할 수 없습니다. 최대값: ${MAX_POINT}원, 요청값: ${100_001_000L}원"))
+
+            verify(exactly = 0) { pointService.updateUserPoint(pointRequest) }
+        }
+    }
+
+    @Nested
+    @DisplayName("PATCH /point/{id}/use - 포인트 사용")
+    inner class UsePoint {
+
+        @Test
+        @DisplayName("정상적인 포인트 사용")
+        fun usePoint_ValidPoint_ReturnsPoint() {
+            val userId = 1L
+            val useAmount = 500L
+            val request = PointAmountRequest(useAmount)
+            val pointRequest = PointRequest(userId, useAmount, TransactionType.USE)
+            val response = PointUpdateResponse(
+                userId = userId,
+                beforePointUpdate = 1000L,
+                afterPointUpdate = 500L,
+                updatedMillis = System.currentTimeMillis()
+            )
+
+            every { pointService.updateUserPoint(pointRequest) } returns response
+
+            mockMvc.perform(
+                MockMvcRequestBuilders.patch("/point/{id}/use", userId)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(request))
+            )
+                .andExpect(status().isOk)
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.userId").value(userId))
+                .andExpect(jsonPath("$.beforePointUpdate").value(1000L))
+                .andExpect(jsonPath("$.afterPointUpdate").value(500L))
+                .andExpect(jsonPath("$.updatedMillis").exists())
+
+            verify { pointService.updateUserPoint(pointRequest) }
+        }
+
+        @Test
+        @DisplayName("음수 금액으로 사용시 400 에러")
+        fun usePoint_NegativeAmount_ReturnsBadRequest() {
+            val userId = 1L
+            val request = PointAmountRequest(-500L)
+
+            mockMvc.perform(
+                MockMvcRequestBuilders.patch("/point/{id}/use", userId)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(request))
+            )
+                .andExpect(status().isBadRequest)
+        }
+
+        @Test
+        @DisplayName("0원 사용시 400 에러")
+        fun usePoint_ZeroAmount_ReturnsBadRequest() {
+            val userId = 1L
+            val request = PointAmountRequest(0L)
+
+            mockMvc.perform(
+                MockMvcRequestBuilders.patch("/point/{id}/use", userId)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(request))
+            )
+                .andExpect(status().isBadRequest)
+        }
+
+        @Test
+        @DisplayName("음수 사용자 ID로 사용시 400 에러")
+        fun usePoint_NegativeUserId_ReturnsBadRequest() {
+            val request = PointAmountRequest(500L)
+
+            mockMvc.perform(
+                MockMvcRequestBuilders.patch("/point/{id}/use", -1)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(request))
+            )
+                .andExpect(status().isBadRequest)
+        }
+
+        @Test
+        @DisplayName("0 사용자 ID로 사용시 400 에러")
+        fun usePoint_ZeroUserId_ReturnsBadRequest() {
+            val request = PointAmountRequest(500L)
+
+            mockMvc.perform(
+                MockMvcRequestBuilders.patch("/point/{id}/use", 0)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(request))
+            )
+                .andExpect(status().isBadRequest)
+        }
+
+        @Test
+        @DisplayName("보유 포인트보다 많은 포인트 사용시 400 에러")
+        fun usePoint_InsufficientPoints_ReturnsBadRequest() {
+            val userId = 1L
+            val useAmount = 2000L
+            val request = PointAmountRequest(useAmount)
+            val pointRequest = PointRequest(userId, useAmount, TransactionType.USE)
+
+            every { pointService.updateUserPoint(pointRequest) } throws
+                    IllegalArgumentException("포인트가 부족합니다. 보유: 1000원, 사용 요청: ${useAmount}원")
+
+            mockMvc.perform(
+                MockMvcRequestBuilders.patch("/point/{id}/use", userId)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(request))
+            )
+                .andExpect(status().isBadRequest)
+                .andExpect(jsonPath("$.message").value("포인트가 부족합니다. 보유: 1000원, 사용 요청: ${useAmount}원"))
+
+            verify { pointService.updateUserPoint(pointRequest) }
+        }
+
+        @Test
+        @DisplayName("대용량 포인트 사용시 정상 처리")
+        fun usePoint_LargeAmount_ReturnsPoint() {
+            val userId = 1L
+            val useAmount = 500_000L
+            val request = PointAmountRequest(useAmount)
+            val pointRequest = PointRequest(userId, useAmount, TransactionType.USE)
+            val response = PointUpdateResponse(
+                userId = userId,
+                beforePointUpdate = 100_000_000L,
+                afterPointUpdate = 50_000_000L,
+                updatedMillis = System.currentTimeMillis()
+            )
+
+            every { pointService.updateUserPoint(pointRequest) } returns response
+
+            mockMvc.perform(
+                MockMvcRequestBuilders.patch("/point/{id}/use", userId)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(request))
+            )
+                .andExpect(status().isOk)
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.userId").value(userId))
+                .andExpect(jsonPath("$.beforePointUpdate").value(100_000_000L))
+                .andExpect(jsonPath("$.afterPointUpdate").value(50_000_000L))
+                .andExpect(jsonPath("$.updatedMillis").exists())
+
+            verify { pointService.updateUserPoint(pointRequest) }
         }
     }
 }

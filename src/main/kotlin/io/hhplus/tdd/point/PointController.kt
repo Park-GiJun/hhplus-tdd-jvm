@@ -1,9 +1,12 @@
 package io.hhplus.tdd.point
 
+import io.hhplus.tdd.dto.PointAmountRequest
 import io.hhplus.tdd.dto.PointRequest
+import io.hhplus.tdd.dto.PointUpdateResponse
 import io.hhplus.tdd.service.PointService
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
+import jakarta.validation.Valid
+import jakarta.validation.constraints.Positive
+import jakarta.validation.constraints.PositiveOrZero
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -12,14 +15,12 @@ import org.springframework.web.bind.annotation.*
 class PointController(
     private val pointService: PointService
 ) {
-    private val logger: Logger = LoggerFactory.getLogger(javaClass)
-
     /**
      * TODO - 특정 유저의 포인트를 조회하는 기능을 작성해주세요.
      */
     @GetMapping("{id}")
     fun point(
-        @PathVariable id: Long,
+        @PathVariable @PositiveOrZero id: Long,
     ): ResponseEntity<UserPoint> {
         return ResponseEntity.ok(pointService.getUserPoint(id))
     }
@@ -29,9 +30,9 @@ class PointController(
      */
     @GetMapping("{id}/histories")
     fun history(
-        @PathVariable id: Long,
-    ): List<PointHistory> {
-        return emptyList()
+        @PathVariable @Positive id: Long,
+    ): ResponseEntity<List<PointHistory>> {
+        return ResponseEntity.ok(pointService.selectAllByUserId(id))
     }
 
     /**
@@ -39,9 +40,11 @@ class PointController(
      */
     @PatchMapping("{id}/charge")
     fun charge(
-        @RequestBody request: PointRequest,
-    ): ResponseEntity<UserPoint> {
-        return ResponseEntity.ok(pointService.updateUserPoint(request))
+        @PathVariable @Positive id: Long,
+        @RequestBody @Valid request: PointAmountRequest,
+    ): ResponseEntity<PointUpdateResponse> {
+        val pointRequest = PointRequest(id, request.amount, TransactionType.CHARGE)
+        return ResponseEntity.ok(pointService.updateUserPoint(pointRequest))
     }
 
     /**
@@ -49,8 +52,10 @@ class PointController(
      */
     @PatchMapping("{id}/use")
     fun use(
-        @RequestBody request: PointRequest,
-    ): ResponseEntity<UserPoint> {
-        return ResponseEntity.ok(pointService.updateUserPoint(request))
+        @PathVariable @Positive id: Long,
+        @RequestBody @Valid request: PointAmountRequest,
+    ): ResponseEntity<PointUpdateResponse> {
+        val pointRequest = PointRequest(id, request.amount, TransactionType.USE)
+        return ResponseEntity.ok(pointService.updateUserPoint(pointRequest))
     }
 }
