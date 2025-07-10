@@ -52,7 +52,26 @@ tasks.getByName("jar") {
     enabled = false
 }
 // test tasks
-tasks.test {
+tasks.withType<Test>().configureEach {
     ignoreFailures = true
     useJUnitPlatform()
+}
+
+
+tasks.named<JacocoReport>("jacocoTestReport") {
+    dependsOn(tasks.named("test"))
+
+    reports {
+        html.required.set(true)
+        xml.required.set(true)
+        csv.required.set(false)
+    }
+
+    classDirectories.setFrom(
+        fileTree("build/classes/kotlin/main") {
+            exclude("**/dto/**", "**/config/**", "**/*Application*")
+        }
+    )
+    sourceDirectories.setFrom(files("src/main/kotlin"))
+    executionData.setFrom(fileTree(buildDir).include("jacoco/test.exec"))
 }
