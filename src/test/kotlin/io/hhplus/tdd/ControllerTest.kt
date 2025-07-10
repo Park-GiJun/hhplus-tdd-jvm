@@ -2,7 +2,11 @@ package io.hhplus.tdd
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.ninjasquad.springmockk.MockkBean
+import io.hhplus.tdd.dto.PointAmountRequest
+import io.hhplus.tdd.dto.PointRequest
+import io.hhplus.tdd.dto.PointUpdateResponse
 import io.hhplus.tdd.point.PointController
+import io.hhplus.tdd.point.TransactionType
 import io.hhplus.tdd.point.UserPoint
 import io.hhplus.tdd.service.PointService
 import io.mockk.every
@@ -62,6 +66,83 @@ class ControllerTest {
         @DisplayName("0 사용자 ID로 요청시 400 에러")
         fun getPoint_ZeroUserId_ReturnsBadRequest() {
             mockMvc.perform(MockMvcRequestBuilders.get("/point/{id}", 0))
+                .andExpect(status().isBadRequest)
+        }
+    }
+
+    @Nested
+    @DisplayName("PATCH /point/{id}/charge - 포인트 충전")
+    inner class ChargePoint {
+
+        @Test
+        @DisplayName("정상적인 포인트 충전")
+        fun chargePoint_ValidPoint_ReturnsPoint() {
+            val userId = 1L
+            val chargeAmount = 1000L
+            val request = PointAmountRequest(chargeAmount)
+            val pointRequest = PointRequest(userId, chargeAmount, TransactionType.CHARGE)
+            val response = PointUpdateResponse(
+                userId = userId,
+                beforePointUpdate = 1000L,
+                afterPointUpdate = 2000L,
+                updatedMillis = System.currentTimeMillis()
+            )
+
+            every { pointService.updateUserPoint(pointRequest) } returns response
+
+            mockMvc.perform(
+                MockMvcRequestBuilders.patch("/point/{id}/charge", userId)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(request))
+            )
+                .andExpect(status().isOk)
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.userId").value(userId))
+                .andExpect(jsonPath("$.beforePointUpdate").value(1000L))
+                .andExpect(jsonPath("$.afterPointUpdate").value(2000L))
+                .andExpect(jsonPath("$.updatedMillis").exists())
+
+            verify { pointService.updateUserPoint(pointRequest) }
+        }
+
+        @Test
+        @DisplayName("음수 금액으로 충전시 400 에러")
+        fun chargePoint_NegativeAmount_ReturnsBadRequest() {
+            val userId = 1L
+            val request = PointAmountRequest(-1000L)
+
+            mockMvc.perform(
+                MockMvcRequestBuilders.patch("/point/{id}/charge", userId)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(request))
+            )
+                .andExpect(status().isBadRequest)
+        }
+
+        @Test
+        @DisplayName("0원 충전시 400 에러")
+        fun chargePoint_ZeroAmount_ReturnsBadRequest() {
+            val userId = 1L
+            val request = PointAmountRequest(0L)
+
+            mockMvc.perform(
+                MockMvcRequestBuilders.patch("/point/{id}/charge", userId)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(request))
+            )
+                .andExpect(status().isBadRequest)
+        }
+
+        @Test
+        @DisplayName("음수 사용자 ID로 충전시 400 에러")
+        fun chargePoint_NegativeUserId_ReturnsBadRequest() {
+            val request = PointAmountRequest(1000L)
+
+            mockMvc.perform(
+                MockMvcRequestBuilders.patch("/point/{id}/charge", -1)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(request))
+            )
                 .andExpect(status().isBadRequest)
         }
     }
