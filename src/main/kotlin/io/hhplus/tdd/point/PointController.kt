@@ -6,8 +6,7 @@ import io.hhplus.tdd.dto.PointUpdateResponse
 import io.hhplus.tdd.service.PointService
 import jakarta.validation.Valid
 import jakarta.validation.constraints.Positive
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
+import jakarta.validation.constraints.PositiveOrZero
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -21,7 +20,7 @@ class PointController(
      */
     @GetMapping("{id}")
     fun point(
-        @PathVariable @Positive id: Long,
+        @PathVariable @PositiveOrZero id: Long,
     ): ResponseEntity<UserPoint> {
         return ResponseEntity.ok(pointService.getUserPoint(id))
     }
