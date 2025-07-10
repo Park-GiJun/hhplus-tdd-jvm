@@ -8,6 +8,7 @@ import io.hhplus.tdd.dto.PointUpdateResponse
 import io.hhplus.tdd.point.PointController
 import io.hhplus.tdd.point.TransactionType
 import io.hhplus.tdd.point.UserPoint
+import io.hhplus.tdd.point.UserPoint.Companion.MAX_POINT
 import io.hhplus.tdd.service.PointService
 import io.mockk.every
 import io.mockk.verify
@@ -144,6 +145,29 @@ class ControllerTest {
                     .content(objectMapper.writeValueAsString(request))
             )
                 .andExpect(status().isBadRequest)
+        }
+
+        @Test
+        @DisplayName("현재 포인트가 99,999,000원일 때 2,000원 충전시 최대값 초과 에러")
+        fun chargePoint_WouldExceedMaxPoint_ReturnsBadRequest() {
+            val userId = 1L
+            val chargeAmount = 2000L
+            val request = PointAmountRequest(chargeAmount)
+            val pointRequest = PointRequest(userId, chargeAmount, TransactionType.CHARGE)
+
+            every { pointService.updateUserPoint(pointRequest) } throws
+                    IllegalArgumentException("포인트가 최대값을 초과할 수 없습니다. 최대값: ${MAX_POINT}원, 요청값: ${100_001_000L}원")
+
+            mockMvc.perform(
+                MockMvcRequestBuilders.patch("/point/{id}/charge", userId)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(request))
+            )
+                .andExpect(status().isBadRequest)
+                .andExpect(jsonPath("$.message").value("포인트가 최대값을 초과할 수 없습니다. 최대값: ${MAX_POINT}원, 요청값: ${100_001_000L}원"))
+
+            verify(exactly = 1) { pointService.getUserPoint(userId) }
+            verify(exactly = 0) { pointService.updateUserPoint(pointRequest) }
         }
     }
 }
